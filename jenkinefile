@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('clone') {
+            steps {
+                git 'https://github.com/zeeshaan02/project100.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'docker build -t myapp:latest .'
+            }
+        }
+        stage('run container') {
+            steps {
+                sh 'docker run -d --name myapp -p 8080:8080 myapp:latest || true'
+            }
+        }
+            }
+}
